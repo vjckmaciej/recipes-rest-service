@@ -7,30 +7,34 @@ import recipes.dto.RecipeDTO;
 import recipes.domain.IDObject;
 import recipes.service.RecipeService;
 
-import java.util.Map;
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
 public class RecipeController {
-    private RecipeService recipeService;
+    private final RecipeService recipeService;
 
     @Autowired
     public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
     }
 
-    @PostMapping("/recipe/new")
-    public IDObject saveRecipe(@RequestBody RecipeDTO recipeDTO) {
+    @PostMapping("/api/recipe/new")
+    public IDObject saveRecipe(@Valid @RequestBody RecipeDTO recipeDTO) {
         return  recipeService.saveRecipe(recipeDTO);
     }
 
-    @GetMapping("/recipe/{id}")
-    public RecipeDTO getRecipe(@PathVariable int id) {
+    @GetMapping("/api/recipe/{id}")
+    public Optional<RecipeDTO> getRecipe(@PathVariable Long id) {
         return recipeService.getRecipe(id);
     }
 
-    @GetMapping("/recipe/allRecipes")
-    public Map<Integer, Recipe> getAllRecipes() {
+    @DeleteMapping("/api/recipe/{id}")
+    public void deleteRecipe(@PathVariable Long id) { recipeService.deleteRecipe(id);}
+
+    @GetMapping("/api/recipe/allRecipes")
+    public List<Recipe> getAllRecipes() {
         return recipeService.getAllRecipes();
     }
 

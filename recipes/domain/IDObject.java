@@ -1,17 +1,12 @@
 package recipes.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.Random;
-
 @Data
-@AllArgsConstructor
 public class IDObject {
-    private int id;
+    private Long id;
 
-    public IDObject() {
-        Random idGenerator = new Random();
-        this.id = idGenerator.nextInt(1000);
+    public IDObject(Long id) {
+        this.id = id;
     }
 }
