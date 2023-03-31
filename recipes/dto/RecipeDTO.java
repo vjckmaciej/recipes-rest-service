@@ -13,14 +13,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RecipeDTO {
-    @NotBlank
+    @NotBlank(message = "Name cannot be blank")
     private String name;
-    @NotBlank
+    @NotBlank(message = "Description cannot be blank")
     private String description;
     @NotNull
-    @Size(min = 1)
+    @Size(min = 1, message = "There must be at least 1 ingredient for recipe")
     private List<String> ingredients;
     @NotNull
-    @Size(min = 1)
+    @Size(min = 1, message = "There must be at least 1 direction for recipe")
     private List<String> directions;
 }
