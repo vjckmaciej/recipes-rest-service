@@ -1,5 +1,6 @@
 package recipes.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -14,6 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "RECIPES")
 public class Recipe {
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -26,7 +28,7 @@ public class Recipe {
     private String category;
     @Column
     @UpdateTimestamp
-    private LocalDateTime localDateTime;
+    private LocalDateTime date;
     @Column
     @ElementCollection
     private List<String> ingredients = new ArrayList<>();

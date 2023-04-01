@@ -1,6 +1,7 @@
 package recipes.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import recipes.domain.Recipe;
 import recipes.dto.RecipeDTO;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@Validated
 public class RecipeController {
     private final RecipeService recipeService;
 
@@ -33,14 +35,13 @@ public class RecipeController {
     @DeleteMapping("/api/recipe/{id}")
     public void deleteRecipe(@PathVariable Long id) { recipeService.deleteRecipe(id);}
 
-    @GetMapping("/api/recipe/allRecipes")
-    public List<Recipe> getAllRecipes() {
-        return recipeService.getAllRecipes();
-    }
-
     @PutMapping("/api/recipe/{id}")
     public void updateRecipe(@PathVariable Long id, @Valid @RequestBody RecipeDTO recipeDTO) {
         recipeService.updateRecipe(recipeDTO, id);
     }
 
+    @GetMapping("/api/recipe/search")
+    public List<Recipe> getAllRecipes(@RequestParam(required = false) String category, @RequestParam(required = false) String name) {
+        return recipeService.getAllRecipes(category, name);
+    }
 }
