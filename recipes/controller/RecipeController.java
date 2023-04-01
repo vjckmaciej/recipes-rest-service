@@ -38,4 +38,9 @@ public class RecipeController {
         return recipeService.getAllRecipes();
     }
 
+    @PutMapping("/api/recipe/{id}")
+    public void updateRecipe(@PathVariable Long id, @Valid @RequestBody RecipeDTO recipeDTO) {
+        recipeService.updateRecipe(recipeDTO, id);
+    }
+
 }

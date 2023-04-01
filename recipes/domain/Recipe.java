@@ -21,6 +21,8 @@ public class Recipe {
     @Column
     private String description;
     @Column
+    private String category;
+    @Column
     @ElementCollection
     private List<String> ingredients = new ArrayList<>();
     @Column

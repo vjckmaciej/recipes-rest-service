@@ -58,4 +58,16 @@ public class RecipeService {
         }
     }
 
+    public void updateRecipe(RecipeDTO recipeDTO, Long id) {
+        if (recipeRepository.existsById(id)) {
+            Recipe updatedRecipe = toRecipeFromDTO(recipeDTO);
+            updatedRecipe.setId(id);
+            recipeRepository.save(updatedRecipe); // updates database with new version of recipe with given ID
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
 }
