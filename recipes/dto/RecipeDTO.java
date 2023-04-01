@@ -4,13 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Length;
-
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -25,13 +21,12 @@ public class RecipeDTO {
     private String description;
     @NotBlank
     private String category;
-//    @Length(min = 8)
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private LocalDateTime dateTime;
     @NotNull
     @Size(min = 1, message = "There must be at least 1 ingredient for recipe")
     private List<String> ingredients;
     @NotNull
     @Size(min = 1, message = "There must be at least 1 direction for recipe")
     private List<String> directions;
+
+
 }

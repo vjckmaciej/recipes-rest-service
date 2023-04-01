@@ -2,8 +2,10 @@ package recipes.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +25,12 @@ public class Recipe {
     @Column
     private String category;
     @Column
+    @UpdateTimestamp
+    private LocalDateTime localDateTime;
+    @Column
     @ElementCollection
     private List<String> ingredients = new ArrayList<>();
     @Column
     @ElementCollection
     private List<String> directions = new ArrayList<>();
-
 }
