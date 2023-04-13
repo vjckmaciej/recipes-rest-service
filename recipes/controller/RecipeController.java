@@ -1,7 +1,6 @@
 package recipes.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import recipes.domain.Recipe;
 import recipes.dto.RecipeDTO;
@@ -13,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@Validated
 public class RecipeController {
     private final RecipeService recipeService;
 

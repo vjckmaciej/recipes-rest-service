@@ -17,7 +17,10 @@ import java.util.List;
 public class Recipe {
     @JsonIgnore
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "recipe_seq")
+    @SequenceGenerator(name = "recipe_seq", sequenceName = "recipe_sequence", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Long id;
     @Column
@@ -35,4 +38,8 @@ public class Recipe {
     @Column
     @ElementCollection
     private List<String> directions = new ArrayList<>();
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
