@@ -11,8 +11,6 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO {
-    private Long id;
-
     @NotBlank
     @Pattern(regexp = ".+@.+\\..+", message = "Email must match the email pattern.")
     private String email;

@@ -36,7 +36,6 @@ public class RecipeService {
 
     public IDObject saveRecipe(RecipeDTO recipeDTO) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        //recipeDTO.setUser((User) auth.getPrincipal());
         Recipe recipe = toRecipeFromDTO(recipeDTO);
         recipe.setUser((User) auth.getPrincipal());
         if (recipe.getUser() != null) {
@@ -59,10 +58,8 @@ public class RecipeService {
     public void deleteRecipe(Long id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (recipeRepository.existsById(id)) {
-            if (recipeRepository.findById(id).get().getUser() == null) {
-                recipeRepository.deleteById(id);
-                throw new ResponseStatusException(HttpStatus.NO_CONTENT);
-            } else if (recipeRepository.findById(id).get().getUser().getEmail().equals(auth.getName())) {
+            if (recipeRepository.findById(id).get().getUser() == null   ||
+                    recipeRepository.findById(id).get().getUser().getEmail().equals(auth.getName())) {
                 recipeRepository.deleteById(id);
                 throw new ResponseStatusException(HttpStatus.NO_CONTENT);
             } else {
@@ -71,38 +68,13 @@ public class RecipeService {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        if (recipeRepository.existsById(id) && recipeRepository.findById(id).get().getUser() != null
-//                && recipeRepository.findById(id).get().getUser().getEmail().equals(auth.getName())) {
-//            recipeRepository.deleteById(id);
-//            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
-//        } else {
-//            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
-//        }
     }
 
     public void updateRecipe(RecipeDTO recipeDTO, Long id) {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        if (recipeRepository.existsById(id) && recipeRepository.findById(id).get().getUser() != null
-//                && recipeRepository.findById(id).get().getUser().getEmail().equals(auth.getName())) {
-//            Recipe updatedRecipe = toRecipeFromDTO(recipeDTO);
-//            updatedRecipe.setId(id);
-//            recipeRepository.save(updatedRecipe); // updates database with new version of recipe with given ID
-//            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
-//        } else {
-//            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
-//        }
-
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (recipeRepository.existsById(id)) {
-            if (recipeRepository.findById(id).get().getUser() == null) {
-                Recipe updatedRecipe = toRecipeFromDTO(recipeDTO);
-                updatedRecipe.setId(id);
-                recipeRepository.save(updatedRecipe); // updates database with new version of recipe with given ID
-                throw new ResponseStatusException(HttpStatus.NO_CONTENT);
-            } else if (recipeRepository.findById(id).get().getUser().getEmail().equals(auth.getName())) {
+            if (recipeRepository.findById(id).get().getUser() == null   ||
+                    recipeRepository.findById(id).get().getUser().getEmail().equals(auth.getName())) {
                 Recipe updatedRecipe = toRecipeFromDTO(recipeDTO);
                 updatedRecipe.setId(id);
                 recipeRepository.save(updatedRecipe); // updates database with new version of recipe with given ID
